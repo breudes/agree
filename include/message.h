@@ -20,5 +20,5 @@ class Message{
         void setMessageDate(std::string new_date);
         void setMessageSender(int new_sender);
         void setMessageContent(std::string new_content);
-}
+};
 #endif

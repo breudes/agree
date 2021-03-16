@@ -14,5 +14,5 @@ class VoiceChannel{
         //Getters and Setters
         Message getVoiceChannelLastMessage() const;
         void setVoiceChannelLastMessage(Message new_last_message);
-}
+};
 #endif

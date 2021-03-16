@@ -14,5 +14,5 @@ class TextChannel{
         //Getters and Setters
         std::vector<Message> getTextChannelMessages() const;
         void setTextChannelMessages(std::vector<Message> new_messages);
-}
+};
 #endif

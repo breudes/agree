@@ -1,0 +1,6 @@
+create-user teste@gmail.com 12345 teste A 
+login teste@gmail.com 12345
+create-server teste1
+list-servers
+disconnect
+quit

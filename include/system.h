@@ -1,12 +1,15 @@
 #ifndef SYSTEM_H_
 #define SYSTEM_H_
 
+#include "../src/user.cpp"
+#include "../src/server.cpp"
+
 #include <vector>
 #include <string>
 #include <iostream>
 
 class System{
-    private:
+    public:
         std::vector<User> users;
         std::vector<Server> servers;
         int userLoggedId;
@@ -30,10 +33,18 @@ class System{
         //Search methods
         int searchUserById(int id);
         int searchUserByEmail(std::string email);
-        User searchUserByPassword(std::string password);
+        int searchServerByName(std::string name);
+        const User getUserById(int id);
+        const User getUserByPassword(std::string password);
+        Server* getServerByName(std::string name);
         //Commands
         void quit();
         void createUser(User new_user);
         void login(std::string email, std::string password);
-}
+        void disconnect();
+        void createServer(std::string server_name);
+        void updateServerDescription(std::string server_name, std::string new_server_description);
+        void updateServerInvite(std::string server_name, std::string invite);
+        void listServers();
+};
 #endif

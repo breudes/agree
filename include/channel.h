@@ -10,9 +10,9 @@ class Channel{
     public:
         //Constructors and Destructor
         Channel();
-        ~Channel();
+        //~Channel();
         //Getters and Setters
         std::string getChannelName() const;
         void setChannelName(std::string new_name);
-}
+};
 #endif
