@@ -7,6 +7,10 @@
 #include <string>
 #include <iostream>
 
+/*
+    * This class is a server class, i.e., similar to a Discord's server it has a name, description,
+    * owner, members, an invite code and multiple channels.
+*/
 class Server{
     private:
         int ownerId;
@@ -26,6 +30,7 @@ class Server{
         std::string getServerInviteCode() const;
         std::vector<Channel> getServerChannels() const;
         std::vector<int> getServerMembersId() const;
+        int getServerOneMemberId(int member_id) const;
         void setServerOwnerId(int new_id);
         void setServerName(std::string new_name);
         void setServerDescription(std::string new_description);

@@ -4,6 +4,10 @@
 #include <string>
 #include <iostream>
 
+/*
+    * This class is a base class for future features on this project. 
+    * For now, this class is only used on Server class, for its 'channels' propertie.
+*/
 class Channel{
     private:
         std::string name;
