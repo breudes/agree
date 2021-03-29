@@ -1,0 +1,34 @@
+create-user mareep@gmail.com 123 mareep
+create-user mareep@gmail.com 123 mareep dois
+login mareep@gmail.com 123
+create-server pokemons
+list-participants
+create-server cakes
+set-server-desc pokemons i love pokemons
+set-server-desc pokemons2 i love pokemons
+set-server-invite-code pokemons 167
+set-server-invite-code pokemons
+disconnect
+disconnect
+login mareep@gmail.com 12
+login mar@gmail.com 123
+create-server poker-ball
+create-user bulba@outlook.com 1234 bulba
+login bulba@outlook.com 1234
+enter-server pokemons
+set-server-desc pokemons i love pokemons
+remove-server cakes
+disconnect
+list-servers
+login mareep@gmail.com 123
+remove-server cake
+remove-server cakes
+set-server-invite-code pokemons 167
+disconnect
+login bulba@outlook.com 1234
+enter-server pokemons 16
+enter-server pokemons 167
+list-participants
+leave-server
+disconnect
+quit

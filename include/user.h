@@ -4,6 +4,9 @@
 #include <string>
 #include <iostream>
 
+/*
+    * This class is a user class. Which means: it has an id, name, email and password. 
+*/
 class User{
     private:
         int id;
