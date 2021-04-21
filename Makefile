@@ -15,7 +15,13 @@ main: bin/user.o bin/server.o bin/system.o bin/utils.o bin/main.o
 bin/user.o: ./src/user.cpp
 	g++ ./src/user.cpp -Wall -std=c++11 -c -o bin/user.o
 
-bin/server.o: ./src/server.cpp 
+bin/voice_channel.o: ./src/voice_channel.cpp
+	g++ ./src/voice_channel.cpp -Wall -std=c++11 -c -o bin/voice_channel.o
+
+bin/text_channel.o: ./src/text_channel.cpp
+	g++ ./src/text_channel.cpp -Wall -std=c++11 -c -o bin/text_channel.o
+
+bin/server.o: ./src/server.cpp bin/voice_channel.o bin/text_channel.o
 	g++ ./src/server.cpp -Wall -std=c++11 -c -o bin/server.o
 
 bin/system.o: ./src/system.cpp bin/user.o bin/server.o
