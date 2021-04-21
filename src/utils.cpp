@@ -1,8 +1,4 @@
 #include "./system.cpp"
-
-#include <istream>
-#include <ostream>
-#include <sstream>
 #include <queue>
 
 //Remains Line
@@ -39,7 +35,7 @@ std::string executeCommands(std::string line, System &agree){
   std::istringstream buf(line);
   std::string command;
   buf >> command;
-
+  /* ----------------- PART 1 ----------------- */
   if(command=="quit"){
     std::cout << "Logging off from Agree System. Goodbye!" << std::endl;
     return "quit";
@@ -86,6 +82,26 @@ std::string executeCommands(std::string line, System &agree){
     agree.leaveServer();
   } else if(command=="list-participants"){
     agree.listServerMembers();
+  /* ----------------- PART 2 ----------------- */
+  } else if(command=="list-channels"){
+    agree.listServerChannels();
+  } else if(command=="create-channel"){
+    std::string name, type;
+    buf >> name;
+    buf >> type;
+    agree.createServerChannel(name,type);
+  } else if(command=="enter-channel"){
+    std::string name;
+    buf >> name;
+    agree.enterServerChannel(name);
+  } else if(command=="leave-channel"){
+    agree.leaveServerChannel();
+  } else if(command=="send-message"){
+    std::string content;
+    content = remainsLine(buf);
+    agree.sendMessage(content);
+  } else if(command=="list-messages"){
+    agree.displayAllMessages();
   }
   return command;
 }

@@ -413,11 +413,198 @@ void System::leaveServer(){
 void System::listServerMembers(){
     /** Displays all members of the current active server on Agree System. 
     */
-    const Server aux_server = this->returnServerByName(this->getSystemServerCurrentName());
-    std::cout << "List of all members on server '" << aux_server.getServerName() << "': " << std::endl;
-    for(size_t i=0; i<aux_server.getServerMembersId().size(); i++){
-        const User aux_user = this->getUserById(aux_server.getServerMembersId()[i]);
-        std::cout << aux_user.getUserName() << std::endl;
+    if(this->getSystemServerCurrentName()!=""){
+        const Server aux_server = this->returnServerByName(this->getSystemServerCurrentName());
+        std::cout << "List of all members on server '" << aux_server.getServerName() << "': " << std::endl;
+        for(size_t i=0; i<aux_server.getServerMembersId().size(); i++){
+            const User aux_user = this->getUserById(aux_server.getServerMembersId()[i]);
+            std::cout << aux_user.getUserName() << std::endl;
+        }
+        std::cout << "\n";
+    }else{
+        std::cout << "You have to log on a server first!\n\n";
+        return;
     }
-    std::cout << "\n";
+}
+//List Server Channels
+void System::listServerChannels(){
+    if(this->getSystemServerCurrentName()==""){
+        std::cout << "You have to log on a server before creates a channel on it!\n" << std::endl;
+        return;
+    }
+    std::cout << "List of channels on the current server '" << this->getSystemServerCurrentName() << "'"<< std::endl;
+    for(size_t i=0; i<this->servers.size(); i++){
+        if(this->servers[i].getServerName() == this->getSystemServerCurrentName()){
+            for(size_t j=0; j<this->servers[i].getServerChannels().size(); j++){
+                std::cout << this->servers[i].getServerChannels()[j]->getChannelName() << std::endl;
+            }
+        }
+    }
+    std::cout << "\n\n" << std::endl;
+}
+//Create Server Channel
+void System::createServerChannel(std::string name, std::string type){
+    /** Creates a new channel for the current active server on Agree System. 
+        @param name: string value for the new channel's name;
+        @param type: string value for the new channel's type;
+    */
+    if(this->getSystemServerCurrentName()=="" && this->getSystemUserLoggedId()==0){
+        std::cout << "You have to log on Agree System and log on a server before creates a channel on it!\n" << std::endl;
+        return;
+    }
+
+    std::vector<Server>::iterator server_iterator;
+    std::string current_server = this->getSystemServerCurrentName();
+    server_iterator = std::find_if(this->servers.begin(), this->servers.end(), [current_server](Server server) {
+        return current_server == server.getServerName();
+    });
+
+    if(server_iterator!=this->servers.end()){
+        int result = server_iterator->checkChannelExists(name,type);
+        if(result==0){
+            Channel *new_channel;
+            if(type=="voice"){
+                new_channel = new VoiceChannel();
+                new_channel->setChannelName(name);
+                new_channel->setChannelType(type);
+                server_iterator->addChannel(new_channel);
+                std::cout << "A voice channel '"<< name << "' created on this server!\n" << std::endl;
+            }else if(type=="text"){
+                new_channel = new TextChannel();
+                new_channel->setChannelName(name);
+                new_channel->setChannelType(type);
+                server_iterator->addChannel(new_channel);
+                std::cout << "A text channel '"<< name << "' created on this server!\n" << std::endl;
+            }
+        }else{
+            std::cout << "A text channel '"<< name << "' already exists on this server!\n" << std::endl;
+            return;
+        }
+    }
+}
+//Enter Server Channel
+void System::enterServerChannel(std::string name){
+    /** Enters the current active user on an channel of current active server on Agree System. 
+        @param name: string value for the channel's name that user will enters to.
+    */
+    if(this->getSystemServerCurrentName()==""){
+        std::cout << "You have to log on a server before enters a channel on it!\n" << std::endl;
+        return;
+    }
+    for(size_t i=0; i<this->servers.size(); i++){
+       if(this->servers[i].getServerName() == this->getSystemServerCurrentName() && this->getSystemUserLoggedId() != 0){
+            int result = this->servers[i].checkChannelExists(name,"");
+            if(result) {
+                this->setSystemCurrentChannelName(name);
+                std::cout << "Entered the channel '"<< name << "' !\n" << std::endl;
+            }else{
+                std::cout << "Channel '"<< name << "' was not found on this server!\n" << std::endl;
+            }
+       }
+    }
+}
+//Leave Server Channel
+void System::leaveServerChannel(){
+    /** Execute the 'leave-channel' command, i.e., set this system current active channel name to an empty string.
+    */
+    if(this->getSystemServerCurrentName()==""){
+        std::cout << "You have to log on a server before leaves a channel on it!\n" << std::endl;
+        return;
+    }
+
+    if(this->getSystemChannelCurrentName()==""){
+        std::cout << "You have to log on a channel before leaves it!\n" << std::endl;
+        return;
+    }
+    std::cout << "Leaving channel '" << this->getSystemChannelCurrentName() << "' of server '" << this->getSystemServerCurrentName() << "'" << std::endl;
+    this->setSystemCurrentChannelName("");
+}
+//Send Message
+void System::sendMessage(std::string content){
+    /** Send a message on the current active channel, its content is passed by user input.
+        @param content: string value for message's content.
+    */
+    if(this->getSystemServerCurrentName()=="" && this->getSystemUserLoggedId()==0){
+        std::cout << "You have to log on a server before sends a message!\n" << std::endl;
+        return;
+    }
+
+    if(this->getSystemChannelCurrentName()==""){
+        std::cout << "You have to log on a channel before sends a message!\n" << std::endl;
+        return;
+    }
+
+    char date[100];
+    time_t s = time(nullptr);
+    strftime(date, 50, "%m/%d/%Y - %R", localtime(&s));
+    Message new_message = Message(date,this->getSystemUserLoggedId(),content);
+
+    std::vector<Server>::iterator server_iterator;
+    std::string current_server = this->getSystemServerCurrentName();
+    std::string current_channel = this->getSystemChannelCurrentName();
+    server_iterator = std::find_if(this->servers.begin(), this->servers.end(), [current_server](Server server) {
+        return server.getServerName()==current_server;
+    });
+
+    if(server_iterator!=this->servers.end()){
+        for(size_t i=0; i<server_iterator->getServerChannels().size(); i++){
+            if(server_iterator->getServerChannels()[i]->getChannelName()==current_channel){
+                if(server_iterator->getServerChannels()[i]->getChannelType()=="voice"){
+                    server_iterator->getServerChannels()[i]->setVoiceChannelLastMessage(new_message);
+                }else if(server_iterator->getServerChannels()[i]->getChannelType()=="text"){
+                    server_iterator->getServerChannels()[i]->addMessage(new_message);
+                }
+                std::cout << "Message sended.\n\n";
+            }
+        }
+    }else{
+        std::cout << "Server not found!\n\n";
+        return;
+    }
+}
+//Display All Messages
+void System::displayAllMessages(){
+    /** Displays all messagens on the current active channel.
+    */
+    if(this->getSystemServerCurrentName()=="" && this->getSystemUserLoggedId()==0){
+        std::cout << "You have to log on a server before creates a channel on it!\n" << std::endl;
+        return;
+    }
+    if(this->getSystemChannelCurrentName()==""){
+        std::cout << "You have to log on a channel before leaves it!\n" << std::endl;
+        return;
+    }
+    std::vector<Server>::iterator server_iterator;
+    std::string current_server = this->getSystemServerCurrentName();
+    std::string current_channel = this->getSystemChannelCurrentName();
+    server_iterator = std::find_if(this->servers.begin(), this->servers.end(), [current_server](Server server) {
+        return server.getServerName()==current_server;
+    });
+
+    if(server_iterator!=this->servers.end()){
+        for(size_t i=0; i<server_iterator->getServerChannels().size(); i++){
+            if(server_iterator->getServerChannels()[i]->getChannelName()==current_channel){
+                if(server_iterator->getServerChannels()[i]->getChannelType()=="voice"){
+                    int user_id = server_iterator->getServerChannels()[i]->getVoiceChannelLastMessage().getMessageSender();                    
+                    std::string message_date = server_iterator->getServerChannels()[i]->getVoiceChannelLastMessage().getMessageDate();
+                    std::string message_content = server_iterator->getServerChannels()[i]->getVoiceChannelLastMessage().getMessageContent();
+                    const User new_user = this->getUserById(user_id);
+                    if(message_content!=""){
+                       std::cout << "\n" << new_user.getUserName() <<  "<" << message_date << ">:" << message_content << std::endl;
+                    }else std::cout << "There is no message to display.\n" << std::endl;
+                }else if(server_iterator->getServerChannels()[i]->getChannelType()=="text"){
+                    for(size_t j=0; j<server_iterator->getServerChannels()[i]->getTextChannelMessages().size(); j++){
+                        int user_id = server_iterator->getServerChannels()[i]->getTextChannelMessages()[j].getMessageSender();
+                        std::string message_date = server_iterator->getServerChannels()[i]->getTextChannelMessages()[j].getMessageDate();
+                        std::string message_content = server_iterator->getServerChannels()[i]->getTextChannelMessages()[j].getMessageContent();
+                        const User new_user = this->getUserById(user_id);
+                        std::cout << new_user.getUserName() << "\n" << "<" << message_date << ">:" << message_content << std::endl;
+                    }
+                }
+            }
+        }
+    }else{
+        std::cout << "Server not found!\n\n";
+        return;
+    }
 }
