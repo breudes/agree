@@ -29,6 +29,22 @@ In this project, you have two options:
     
 Ps: this 'script.txt' file has all commands by default, to facilitate the project execution test. But, feel free to change this file however you want.
 
+## Explanation about each part of this project
+
+1. Part One
+
+First part is where some methods was implemented to interact with users and servers. Was implemented methods like create user or server, update server's info, remove or enter server. Each command and input's example is on the next topic called 'Input and Output commands examples', feel free to use this topic as a guide to you use the system.
+
+2. Part Two: 
+
+Second part is where some methods was implemented to interact with channels (text or voice type, of course). Which means that some methods was implemented to create, enter, leave a channel; the same way was implement some methods to send a message on some channel, to list all messages from a particular channel, list all channels on some active server, etc. All channels and messages are part of some server, so all of them will be saved or loded on servers.
+
+3. Part Three
+
+On this third and last part was implemented two main methods: save and load, that reach out another 4 methods, they're, respectively: save users, save servers, load users and load servers. The first two its taken by method 'save', where Agree System saves all data from active users and servers. The same goes with the last two methods, taken by methos 'load', where Agree System loads all data from previous users and servers. This is only possible by creating two .txt files: users and servers, with those files the user can save and load any data of these classes on Agree System.
+
+Ps: those .txt files is on path: ./src/txt/data, in case you want to clear ou wrote on them.
+
 ## Input and Output commands examples
 
 Like it was said, this project has three parts, the first part takes examples 1-12 and part two takes examples 13-16. See all examples of input and output, titled by command:
@@ -201,7 +217,9 @@ This project was easier than the previous projects because on Agree we used vect
 
 ## Author and Colaborators
 
-This projet was made by breudes (https://github.com/breudes). Full name author: Brenda Alexandra de Souza Silva. But, again, it was used a template base code from professor Isaac Franco Fernandes (https://github.com/isaacfranco), so Isaac is also a co-author or colaborator of this project.
+This projet was made by breudes (https://github.com/breudes). Full name author: Brenda Alexandra de Souza Silva. But, again, it was used a template base code from professor Isaac Franco Fernandes (https://github.com/isaacfranco), so Isaac is also a co-author or colaborator of this project. 
+
+You can see his template code on https://github.com/isaacfranco/lp1-concordo-base.
     
 ## License
 

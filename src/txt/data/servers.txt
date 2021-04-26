@@ -1,30 +1,7 @@
-2
+1
 1
 pokemons
 all pokemons that I really like
 456789
-1
-1
 0
-1
-watercolor
-all water type that I really like
-123456
-1
-1
-2
-water
-voice
-1
-1
-04/26/2021 - 11:18
-hi water type
-earth
-text
-2
-1
-04/26/2021 - 11:18
-hi earth type
-1
-04/26/2021 - 11:18
-working hard?
+0

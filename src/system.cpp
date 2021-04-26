@@ -686,5 +686,150 @@ void System::saveServers(){
     }
 }
 //Load
+void System::load(){
+    /** Load all data from users and servers on this Agree System.
+    */
+    //this->loadUsers();
+    this->loadServers();
+}
 //Load Users
+void System::loadUsers(){
+    /** Load all data from users on this Agree System.
+    */
+    std::ifstream usersLoadFile("./src/txt/data/users.txt");
+
+    if (!usersLoadFile) {
+        std::cout << "\nFile was not open";
+        exit(1);
+    } else {
+        std::string size;
+        std::string id_user, name_user, email_user, password_user;
+        usersLoadFile >> size;
+        size_t users_size = std::stoi(size);
+        usersLoadFile.ignore();
+        for (size_t i = 0; i < users_size ; ++i) {
+            std::getline(usersLoadFile, id_user);
+            std::getline(usersLoadFile, name_user);
+            std::getline(usersLoadFile, email_user);
+            std::getline(usersLoadFile, password_user);
+
+            int new_id = std::stoi(id_user);
+            auto iterator_user = find_if(this->users.begin(), this->users.end(), [new_id](User user) {
+                return new_id == user.getUserId();
+            });
+
+            if(iterator_user==this->users.end()){
+                User new_user = User();
+                new_user.setUserId(new_id);
+                new_user.setUserName(name_user);
+                new_user.setUserEmail(email_user);
+                new_user.setUserPassword(password_user);
+                this->users.push_back(new_user);
+            }
+        }
+        usersLoadFile.close();
+    }
+}
 //Load Servers
+void System::loadServers(){
+    /** Load all data from servers on this Agree System.
+    */
+    std::ifstream serversLoadFile("./src/txt/data/servers.txt");
+
+    if (!serversLoadFile) {
+        std::cout << "\nFile was not open";
+        exit(1);
+    } else {
+        std::string size;
+        std::string owner_server, name_server, desc_server, invite_server;
+        serversLoadFile >> size;
+        size_t servers_size = std::stoi(size);
+        serversLoadFile.ignore();
+        Server new_server = Server();
+
+        for (size_t i = 0; i < servers_size ; ++i) {
+            std::getline(serversLoadFile,owner_server);
+            std::getline(serversLoadFile,name_server);
+            std::getline(serversLoadFile,desc_server);
+            std::getline(serversLoadFile,invite_server);
+
+            int owner_id = std::stoi(owner_server);
+            auto iterator_server = find_if(this->servers.begin(), this->servers.end(), [owner_id](Server server) {
+                return owner_id == server.getServerOwnerId();
+            });
+
+            if(iterator_server==this->servers.end()){
+                new_server.setServerOwnerId(owner_id);
+                new_server.setServerName(name_server);
+                new_server.setServerDescription(desc_server);
+                new_server.setServerInviteCode(invite_server);   
+                
+                //Length of members's vector and its id (as integer)
+                std::string user_size;
+                std::string user_id;
+                user_size.clear();
+                std::getline(serversLoadFile,user_size);
+                size_t users_size = std::stoi(user_size);
+
+                for (size_t j=0; j<users_size; ++j){
+                    std::getline(serversLoadFile,user_id);
+                    int user = std::stoi(user_id);
+                    new_server.setServerOneMemberId(user);
+                }        
+                
+                //Length of channels's vector and its info
+                std::string channel_size;
+                std::getline(serversLoadFile,channel_size);
+                size_t channels_size = std::stoi(channel_size);
+                
+                std::string name_channel, type_channel, message_size;
+                std::string m_sender,m_date,m_content;
+                
+                for (size_t k=0; k<channels_size; ++k) {
+                    std::getline(serversLoadFile,name_channel);
+                    std::getline(serversLoadFile,type_channel);
+                    Channel* new_channel;
+                    
+                    if(type_channel=="voice"){
+                        new_channel = new VoiceChannel();
+                        new_channel->setChannelName(name_channel);
+                        
+                        //get voice channel message
+                        std::getline(serversLoadFile,message_size);
+                        std::getline(serversLoadFile,m_sender);
+                        std::getline(serversLoadFile,m_date);
+                        std::getline(serversLoadFile,m_content);
+                        int sender = std::stoi(m_sender);
+
+                        //create and set new message from this voice channel
+                        Message new_message = Message(m_date,sender,m_content);
+                        new_channel->setVoiceChannelLastMessage(new_message);
+                    }else if(type_channel=="text"){
+                        new_channel = new TextChannel();
+                        new_channel->setChannelName(name_channel);
+                        
+                        //get text channel messages
+                        std::getline(serversLoadFile,message_size);
+                        size_t m_size = std::stoi(message_size);
+
+                        //create and set new messages from this text channel
+                        for (size_t m=0; m<m_size; ++m){
+                            //get voice channel message
+                            std::getline(serversLoadFile,m_sender);
+                            std::getline(serversLoadFile,m_date);
+                            std::getline(serversLoadFile,m_content);
+                            int sender = std::stoi(m_sender);
+
+                            Message new_message = Message(m_date,sender,m_content);
+                            new_channel->addMessage(new_message);
+                        }
+                    }
+                    new_server.addChannel(new_channel);
+                }
+                //Add new server on Agree System
+                this->servers.push_back(new_server);
+            }else std::cout << "\nServer already exists on Agree System!\n";
+        }
+        serversLoadFile.close();
+    }
+}

@@ -4,14 +4,15 @@
 #include "../src/user.cpp"
 #include "../src/server.cpp"
 
+#include <iostream>
+#include <sstream>
+#include <ostream>
+#include <fstream>
 #include <algorithm>
 #include <vector>
 #include <string>
-#include <iostream>
 #include <ctime>    
 #include <chrono>  
-#include <ostream>
-#include <sstream> 
 #include <time.h>
 #include <fstream>
 /*
@@ -75,8 +76,11 @@ class System{
         void sendMessage(std::string content);
         void displayAllMessages();
         void save(std::string option);
+        void load();
     private:
         void saveUsers();
         void saveServers();
+        void loadUsers();
+        void loadServers();
 };
 #endif

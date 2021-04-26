@@ -1,23 +1,4 @@
 create-user mareep@gmail.com 123 mareep
-create-user flaffy@gmail.com 456 flaffy
-create-user ampharos@gmail.com 789 ampharos
 login mareep@gmail.com 123
 create-server pokemons
-set-server-desc pokemons all pokemons that I really like
-set-server-invite-code pokemons 456789
-create-server watercolor
-enter-server watercolor
-set-server-desc watercolor all water type that I really like
-set-server-invite-code watercolor 123456
-create-channel water voice
-enter-channel water
-send-message hi water type
-leave-channel
-create-channel earth text
-enter-channel earth
-send-message hi earth type
-send-message working hard?
-leave-channel
-leave-server
-disconnect
 quit
