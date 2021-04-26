@@ -608,3 +608,82 @@ void System::displayAllMessages(){
         return;
     }
 }
+//Save
+void System::save(std::string option){
+    if(option=="users"){
+        this->saveUsers();
+    }else if(option=="servers"){
+        this->saveServers();
+    }else{
+        std::cout << "\n\nInvalid option";
+        return;
+    }
+}
+//Save Users
+void System::saveUsers(){
+    /** This function saves all users created on Agree System.
+    */
+    std::ofstream users("./src/txt/data/users.txt");
+
+    if(!users){
+        std::cout << "\nFile was not open";
+        exit(1);
+    }else{
+        users << this->getSystemUsers().size() << std::endl;
+        for(size_t i=0; i<this->getSystemUsers().size(); i++){
+            users << this->getSystemUsers()[i].getUserId() << std::endl;
+            users << this->getSystemUsers()[i].getUserName() << std::endl;
+            users << this->getSystemUsers()[i].getUserEmail() << std::endl;
+            users << this->getSystemUsers()[i].getUserPassword() << std::endl;
+        }
+        users.close();
+    }
+} 
+//Save Servers
+void System::saveServers(){
+    /** This function saves all servers created on Agree System.
+    */
+    std::ofstream servers("./src/txt/data/servers.txt");
+
+    if(!servers){
+        std::cout << "\nFile was not open";
+        exit(1);
+    }else{
+        for(auto it_server = this->servers.begin(); it_server!=this->servers.end(); it_server++){
+            servers << it_server->getServerOwnerId() << std::endl;
+            servers << it_server->getServerName() << std::endl;
+            servers << it_server->getServerDescription() << std::endl;
+            servers << it_server->getServerInviteCode() << std::endl;
+            servers << it_server->getServerMembersId().size() << std::endl;
+
+            for(auto it_member = it_server->getServerMembersId().begin(); it_member!=it_server->getServerMembersId().end(); it_member++){
+                servers << (*it_member) << std::endl;
+            }
+
+            servers << it_server->getServerChannels().size() << std::endl;
+
+            for(size_t i=0; i<it_server->getServerChannels().size(); i++){
+                servers << it_server->getServerChannels()[i]->getChannelName() << std::endl;
+                servers << it_server->getServerChannels()[i]->getChannelType() << std::endl;
+
+                if(it_server->getServerChannels()[i]->getChannelType() == "voice"){
+                    servers << "1" << std::endl;
+                    servers << it_server->getServerChannels()[i]->getVoiceChannelLastMessage().getMessageSender() << std::endl;
+                    servers << it_server->getServerChannels()[i]->getVoiceChannelLastMessage().getMessageDate() << std::endl;
+                    servers << it_server->getServerChannels()[i]->getVoiceChannelLastMessage().getMessageContent() << std::endl;
+                }else if(it_server->getServerChannels()[i]->getChannelType() == "text"){
+                    servers << it_server->getServerChannels()[i]->getTextChannelMessages().size() << std::endl;
+                    for(size_t j=0; j<it_server->getServerChannels()[i]->getTextChannelMessages().size(); j++){
+                        servers << it_server->getServerChannels()[i]->getTextChannelMessages()[j].getMessageSender() << std::endl;
+                        servers << it_server->getServerChannels()[i]->getTextChannelMessages()[j].getMessageDate() << std::endl;
+                        servers << it_server->getServerChannels()[i]->getTextChannelMessages()[j].getMessageContent() << std::endl;
+                    }
+                }
+            }
+        }
+        servers.close();
+    }
+}
+//Load
+//Load Users
+//Load Servers

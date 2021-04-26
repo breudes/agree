@@ -46,6 +46,7 @@ std::string executeCommands(std::string line, System &agree){
     name = remainsLine(buf);
     User new_user = User(name,email,password);
     agree.createUser(new_user);
+    agree.save("users");
   } else if(command=="login"){
     std::string email, password;
     buf >> email;
@@ -57,6 +58,7 @@ std::string executeCommands(std::string line, System &agree){
     std::string name;
     buf >> name;
     agree.createServer(name);
+    agree.save("servers");
   } else if(command=="set-server-desc"){
     std::string name, new_description;
     buf >> name;

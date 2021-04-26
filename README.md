@@ -74,7 +74,7 @@ First of all, a server has a name and an optional invite code, for future member
         
 This command is only available if Agree System has at least one user logged to create a server. Otherwise, the output will be "Enter with an user before create a server!". After created, you'll be the only owner of the server.
 
-    - structure: create-server <server's email>
+    - structure: create-server <server's name>
     - example:
         > create-server pokemons
         > Created server!
