@@ -43,7 +43,7 @@ Second part is where some methods was implemented to interact with channels (tex
 
 On this third and last part was implemented two main methods: save and load, that reach out another 4 methods, they're, respectively: save users, save servers, load users and load servers. The first two its taken by method 'save', where Agree System saves all data from active users and servers. The same goes with the last two methods, taken by methos 'load', where Agree System loads all data from previous users and servers. This is only possible by creating two .txt files: users and servers, with those files the user can save and load any data of these classes on Agree System.
 
-Ps: those .txt files is on path: ./src/txt/data, in case you want to clear ou wrote on them.
+Ps: those .txt files is on path: ./src/txt/data, in case you want to clear or wrote on them.
 
 ## Input and Output commands examples
 
