@@ -649,6 +649,7 @@ void System::saveServers(){
         std::cout << "\nFile was not open";
         exit(1);
     }else{
+        servers << this->servers.size() << std::endl;
         for(auto it_server = this->servers.begin(); it_server!=this->servers.end(); it_server++){
             servers << it_server->getServerOwnerId() << std::endl;
             servers << it_server->getServerName() << std::endl;
@@ -656,8 +657,8 @@ void System::saveServers(){
             servers << it_server->getServerInviteCode() << std::endl;
             servers << it_server->getServerMembersId().size() << std::endl;
 
-            for(auto it_member = it_server->getServerMembersId().begin(); it_member!=it_server->getServerMembersId().end(); it_member++){
-                servers << (*it_member) << std::endl;
+            for(size_t member =  0; member< it_server->getServerMembersId().size(); member++){
+                servers << it_server->getServerMembersId()[member] << std::endl;
             }
 
             servers << it_server->getServerChannels().size() << std::endl;

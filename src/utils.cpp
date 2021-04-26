@@ -45,7 +45,7 @@ std::string executeCommands(std::string line, System &agree){
     buf >> password;
     name = remainsLine(buf);
     User new_user = User(name,email,password);
-    agree.createUser(new_user);
+    agree.createUser(new_user); //PART 03
     agree.save("users");
   } else if(command=="login"){
     std::string email, password;
@@ -58,17 +58,19 @@ std::string executeCommands(std::string line, System &agree){
     std::string name;
     buf >> name;
     agree.createServer(name);
-    agree.save("servers");
+    agree.save("servers"); //PART 03
   } else if(command=="set-server-desc"){
     std::string name, new_description;
     buf >> name;
     new_description = remainsLine(buf);
     agree.updateServerDescription(name,new_description);
+    agree.save("servers"); //PART 03
   } else if(command=="set-server-invite-code"){
     std::string name, invite_code;
     buf >> name;
     buf >> invite_code;
     agree.updateServerInvite(name,invite_code);
+    agree.save("servers"); //PART 03
   } else if(command=="list-servers"){
     agree.listServers();
   } else if(command=="remove-server"){
@@ -92,6 +94,7 @@ std::string executeCommands(std::string line, System &agree){
     buf >> name;
     buf >> type;
     agree.createServerChannel(name,type);
+    agree.save("servers"); //PART 03
   } else if(command=="enter-channel"){
     std::string name;
     buf >> name;
@@ -102,6 +105,7 @@ std::string executeCommands(std::string line, System &agree){
     std::string content;
     content = remainsLine(buf);
     agree.sendMessage(content);
+    agree.save("servers"); //PART 03
   } else if(command=="list-messages"){
     agree.displayAllMessages();
   }
