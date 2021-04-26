@@ -1,16 +1,4 @@
 create-user mareep@gmail.com 123 mareep
 login mareep@gmail.com 123
 create-server pokemons
-enter-server pokemons
-list-participants
-create-channel earth text
-create-channel water voice
-enter-channel water
-send-message hi how are u?
-send-message btw im fine
-leave-channel
-enter-channel earth
-send-message hi how are u?
-send-message btw im fine
-list-messages
 quit

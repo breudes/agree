@@ -4,15 +4,17 @@
 #include "../src/user.cpp"
 #include "../src/server.cpp"
 
+#include <iostream>
+#include <sstream>
+#include <ostream>
+#include <fstream>
 #include <algorithm>
 #include <vector>
 #include <string>
-#include <iostream>
-#include <ctime>        // std::time_t, struct std::tm, std::localtime
+#include <ctime>    
 #include <chrono>  
-#include <ostream>
-#include <sstream> 
 #include <time.h>
+#include <fstream>
 /*
     * This class is a system class similar to the application called as Discord.
     * Which means: it has users, servers, one user logged's id, current active server and its channel. 
@@ -73,5 +75,12 @@ class System{
         void leaveServerChannel();
         void sendMessage(std::string content);
         void displayAllMessages();
+        void save(std::string option);
+        void load();
+    private:
+        void saveUsers();
+        void saveServers();
+        void loadUsers();
+        void loadServers();
 };
 #endif
