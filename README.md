@@ -6,7 +6,7 @@ Agree is a project, made with cpp, similar to a program called Discord. It has s
 
 This project uses a template code made by professor Isaac Franco Fernandes (https://github.com/isaacfranco). You can see his code on https://github.com/isaacfranco/lp1-concordo-base.
 
-Agree Project is a task presents on class called 'Program Language I', taught by professor Renan Moioli, in the course of IT at Federal University of Rio Grande do Norte (Brazil). This project is the part one of three parts.
+Agree Project is a task presents on class called 'Program Language I', taught by professor Renan Moioli, in the course of IT at Federal University of Rio Grande do Norte (Brazil). This project has three parts, for more details see section called 'Explanation about each part of this project'.
 
 ## Compiling
 
