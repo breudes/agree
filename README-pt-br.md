@@ -2,11 +2,11 @@
 
 ## Sobre
 
-Agree  é um projeto, feito com C++, similar a um programa chamado Discord. Ele possui servidores, usuários, canais e interações entre todos eles. Cada interação é possível usando um comando por linha, com cada linha válida sendo executada pelo projeto. Para aprender como usa-lo, veja os tópicos <a href="#compilando">Compilando</a> e <a href="#exemplos-de-comandos-de-entrada-e-saída">Exemplos de comandos de Entrada e Saída</a>.
+Agree  é um projeto, feito com C++, similar a um programa chamado Discord. Ele possui servidores, usuários, canais e interações entre todos eles. Cada interação é possível usando um comando por linha, com cada linha válida sendo executada pelo projeto. Para aprender como usá-lo, veja os tópicos <a href="#compilando">Compilando</a> e <a href="#exemplos-de-comandos-de-entrada-e-saída">Exemplos de comandos de Entrada e Saída</a>.
 
 Este projeto usa um template de código feito pelo professor Isaac Franco Fernandes (https://github.com/isaacfranco). Você pode ver seu código em https://github.com/isaacfranco/lp1-concordo-base.
 
-O Projeto Agree é uma tarefa aprensentada em uma aula chamada 'Linguagem de Programação I', lecionada pelo professor Renan Moioli, no curso de TI na Universidade Federal do Rio Grande do Norte. Este projeto possui três partes, para mais detalhes veja o tópico <a href="#explicação-sobre-cada-parte-deste-projeto">Explicação sobre cada parte deste projeto</a>.
+O Projeto Agree é uma tarefa apresentada em uma aula chamada 'Linguagem de Programação I', lecionada pelo professor Renan Moioli, no curso de TI na Universidade Federal do Rio Grande do Norte. Este projeto possui três partes, para mais detalhes veja o tópico <a href="#explicação-sobre-cada-parte-deste-projeto">Explicação sobre cada parte deste projeto</a>.
 
 
 ## Compilando
@@ -14,9 +14,9 @@ O Projeto Agree é uma tarefa aprensentada em uma aula chamada 'Linguagem de Pro
 Um arquivo Makefile é usado para compilar este projeto. Dentro da pasta raiz do projeto, assumindo que `$` é o prompt do terminal, siga os seguintes passos:
 
     ```
-    # Clone project
+    # Clone o projeto
     $ git clone https://github.com/breudes/agree.git   
-    # Compile project
+    # Compile o projeto
     $ make     
     # Execute 
     $ ./main < ./src/txt/script.txt
@@ -26,7 +26,7 @@ Neste projeto, você possui duas opções:
     
 1. Você pode usar o arquivo 'script.txt' para definir todos os comandos de uma vez, fazendo com que o projeto os execute de um vez também. Para testar comandos diferentes, você pode alterar o aquivo .txt e digitar './main < ./src/txt/script.txt' novamente; e para saber de exemplos de comando, veja o tópico <a href="#exemplos-de-comandos-de-entrada-e-saída">Exemplos de comandos de Entrada e Saída</a>;
     
-2. Você pode usar apenas o comando ./main e ir adicionando os outros camandos, um por linha. Neste caso, uma saída irá ser mostrada considerando cada comando.
+2. Você pode usar apenas o comando ./main e ir adicionando os outros comandos, um por linha. Neste caso, uma saída irá ser mostrada considerando cada comando.
     
 Ps: este arquivo 'script.txt' contém todos os comandos por padrão para facilitar o teste de execução do projeto. Mas sinta-se livre para mudar esse arquivo da maneira que quiser.
 
@@ -42,7 +42,7 @@ Segunda parte é onde alguns métodos foram implementados para interagir com os 
 
 3. Parte Três
 
-Nesta terceira e última parte, foram implementados dois métodos principais: salvar e carregar, que acabam atingindo 4 outros métodos, sendo eles: salvar usuários, salvar servidores, carregar usuários e carregar servidores. Os primeiros dois vem do método 'salvar', onde o Sistema Agree salva todos os dados de usuários ativos e servidores. O mesmo acontece com os últimos dois métodos, originários do método 'carregar', onde o Sistema Agree carrega todos os dados de usuários e servidores anteriores. Isso só é possível criando-se dois arquivos .txt: usuários e servidores, com esses dois arquivos o usuário ppode salvar e carregar qualquer dado dessas classes no Sistema Agree.
+Nesta terceira e última parte, foram implementados dois métodos principais: salvar e carregar, que acabam atingindo 4 outros métodos, sendo eles: salvar usuários, salvar servidores, carregar usuários e carregar servidores. Os primeiros dois vem do método 'salvar', onde o Sistema Agree salva todos os dados de usuários ativos e servidores. O mesmo acontece com os últimos dois métodos, originários do método 'carregar', onde o Sistema Agree carrega todos os dados de usuários e servidores anteriores. Isso só é possível criando-se dois arquivos .txt: usuários e servidores, com esses dois arquivos o usuário pode salvar e carregar qualquer dado dessas classes no Sistema Agree.
 
 Ps: os aquivos .txt estão no caminho: ./src/txt/data, caso você queira limpá-los os escrever neles.
 
@@ -89,7 +89,7 @@ Como foi dito, este projeto possui três parte, a primeira parte inclui os exemp
 5. create-server
     Antes de tudo, um servidor possui um nome e um código de convite opcional, para que futuros membros possam entrar; mas, quando você cria um servidor, o código de convite ainda não está configurado, podendo ser definido com outro comando, se você quiser.
         
-    Este comando só fica disponível se o Sistema Agree tem pelo menos um usuário logado para criar o servidor. Caso contrário, a saída será "Enter with an user before create a server!". Depois de cirado, você será o único dono do servidor.
+    Este comando só fica disponível se o Sistema Agree tem pelo menos um usuário logado para criar o servidor. Caso contrário, a saída será "Enter with an user before create a server!". Depois de criado, você será o único dono do servidor.
 
     - estrutura: create-server <server's name>
     - exemplo:
@@ -200,12 +200,12 @@ Ps: For this commands, you'll have to be logged on some server on Agree System, 
     > leave-channel
     > Leaving channel 'earth' of server 'pokemons'
 17. send-message
-    Nota: este comando está disponível somente se você estiver logaddo em um servidor e canal, senão ele não executará.
+    Nota: este comando está disponível somente se você estiver logado em um servidor e canal, senão ele não executará.
     - estrutura: send-message <'message's content'>
     - exemplo: 
         > send-message hi how are u?
 18. list-messages
-    Nota: este comando está disponível somente se você estiver logaddo em um servidor e canal, senão ele não executará.
+    Nota: este comando está disponível somente se você estiver logado em um servidor e canal, senão ele não executará.
     > list-messages
     > mareep
     > <04/21/2021 - 14:40>:hi how are u?
@@ -214,7 +214,7 @@ Ps: For this commands, you'll have to be logged on some server on Agree System, 
     
 ## Feedback (Limitações e Dificuldades)
 
-Este projeto foi mais fácil que projetos anteriores pois no Agree nós usamos o vetor como estrutura de dados, tanto nas classes Server e System. A limitação foi o conteúdo de herança pois eu estudei isso há muito tempo, então foi um pouco complicado implementa-lo.
+Este projeto foi mais fácil que projetos anteriores pois no Agree nós usamos o vetor como estrutura de dados, tanto nas classes Server e System. A limitação foi o conteúdo de herança pois eu estudei isso há muito tempo, então foi um pouco complicado implementá-lo.
 
 ## Autora e Colaboradores
 
